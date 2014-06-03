@@ -1,38 +1,6 @@
 
 
 
-function initialize() {
-    var c = document.getElementById("gamearea");
-    var ctx = c.getContext("2d");
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
-    ctx.fillStyle = "#FF0077";
-    ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
-    drawHexagon(ctx, 50, 50, 10, "#000000", "#FFFFFF");
-    drawHexagon(ctx, 200, 200, 10, "#FFFFFF", "#000000");
-    drawHexagonStrip(ctx, 100, 100, 10, "#00FF00", "#FF00FF", 10);
-
-
-    // drawHGrid(ctx, 300, 200, 10, genHGrid(4), 4);
-    // ctx.beginPath();
-    // ctx.arc(300, 200, 2, 0, Math.PI*2, true);
-    // ctx.stroke();
-
-    // drawHGrid(ctx, 600, 200, 10, genHGrid(5), 5);
-    // ctx.beginPath();
-    // ctx.arc(600, 200, 2, 0, Math.PI*2, true);
-    // ctx.stroke();
-
-
-    for(var i=2;i<7;i++) {
-	drawHGrid(ctx, (i-1)*200, 200, 10, genHGrid(i), i);
-	ctx.beginPath();
-	ctx.arc((i-1)*200, 200, 2, 0, Math.PI*2, true);
-	ctx.stroke();	
-    }
-
-}
-
 
 function drawHGrid(ctx, x, y, radius, cells, n) {
     // TODO: complete colors for cells
@@ -45,10 +13,17 @@ function drawHGrid(ctx, x, y, radius, cells, n) {
 	else
 	    len = 3*n-row-2;
 	for (var i=0;i<len;i++) {
+	    cells[cell].x = rowStart(row,n,x,y,radius).x+2*radius*i;
+	    cells[cell].y = rowStart(row,n,x,y,radius).y;
+	    var color = "#FFFFFF";
+	    if (cells[cell].type!="base") {
+		color = "#00FF00";
+	    }
 	    drawHexagon(ctx,
 			(rowStart(row,n,x,y,radius).x+2*radius*i),
 			(rowStart(row,n,x,y,radius).y),
-			radius, "#000000", "#FFFFFF" );
+			radius, "#000000", color );
+	    cell++;
 	}
     }
 }
@@ -59,7 +34,7 @@ function rowStart(row, n, x, y ,radius) {
 		      y:y-(Math.sqrt(3)*(radius*n-radius))};
 	var offset = {x:(radius),
 		      y:(radius*Math.sqrt(3))};
-	return {x:(origin.x-offset.x*row),//wrong here
+	return {x:(origin.x-offset.x*row),
 		y:(origin.y+offset.y*row)};
     }
     else {

@@ -1,16 +1,20 @@
 // makes the board..?
 
 // object for a cell:
-// { id:# type:fire/tree/water/rock/base player:0/1/2, perm:???}
+// { id:# type:fire/tree/water/rock/base 
+//  player:0/1/2, perm:???, x:0, y:0}
 
 // id's are 1-indexed
+
+// Bad thing (maybe): I generate the coords in the draw file and add
+// them there...
 
 
 function genHGrid(n) {//1
     var len, cellno;
     var cells = [];
-    cells[0] = {id:0, type:"base", player:0, perm:0}
-    for(var i=1;i<sizeofHGrid(n);i++)
+    cells[0] = {id:0, type:"base", player:0, perm:0, x:0, y:0}
+    for(var i=1;i<=sizeofHGrid(n);i++)
 	cells[i] = {id:i, type:"base", player:0, perm:1};
     return cells;
 }
