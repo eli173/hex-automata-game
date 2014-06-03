@@ -11,11 +11,25 @@ function initialize() {
     drawHexagon(ctx, 50, 50, 10, "#000000", "#FFFFFF");
     drawHexagon(ctx, 200, 200, 10, "#FFFFFF", "#000000");
     drawHexagonStrip(ctx, 100, 100, 10, "#00FF00", "#FF00FF", 10);
-    drawHGrid(ctx, 300, 200, 10, genHGrid(4), 4);
 
-    ctx.beginPath();
-    ctx.arc(300, 200, 2, 0, Math.PI*2, true);
-    ctx.stroke();
+
+    // drawHGrid(ctx, 300, 200, 10, genHGrid(4), 4);
+    // ctx.beginPath();
+    // ctx.arc(300, 200, 2, 0, Math.PI*2, true);
+    // ctx.stroke();
+
+    // drawHGrid(ctx, 600, 200, 10, genHGrid(5), 5);
+    // ctx.beginPath();
+    // ctx.arc(600, 200, 2, 0, Math.PI*2, true);
+    // ctx.stroke();
+
+
+    for(var i=2;i<7;i++) {
+	drawHGrid(ctx, (i-1)*200, 200, 10, genHGrid(i), i);
+	ctx.beginPath();
+	ctx.arc((i-1)*200, 200, 2, 0, Math.PI*2, true);
+	ctx.stroke();	
+    }
 
 }
 
@@ -41,11 +55,11 @@ function drawHGrid(ctx, x, y, radius, cells, n) {
 
 function rowStart(row, n, x, y ,radius) {
     if (row<n) { // above halfway
-	var origin = {x:x-((radius*n)/2+radius),
+	var origin = {x:x-(radius*n-radius),
 		      y:y-(Math.sqrt(3)*(radius*n-radius))};
 	var offset = {x:(radius),
 		      y:(radius*Math.sqrt(3))};
-	return {x:(origin.x-offset.x*row),
+	return {x:(origin.x-offset.x*row),//wrong here
 		y:(origin.y+offset.y*row)};
     }
     else {
