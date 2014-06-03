@@ -2,7 +2,7 @@
 
 
 function initialize() {
-    var radius = 10;
+    var radius = 20;
     var size = 6;
     var c = document.getElementById("gamearea");
     var ctx = c.getContext("2d");
@@ -11,8 +11,8 @@ function initialize() {
     var gameHGrid = genHGrid(size);
     c.addEventListener("click", function(evt)
 		       {onClick(evt, gameHGrid, radius)
-			mainLoop(ctx, gameHGrid, size)});
-    mainLoop(ctx, gameHGrid, size);
+			mainLoop(ctx, gameHGrid, size, radius)});
+    mainLoop(ctx, gameHGrid, size, radius);
 //     ctx.fillStyle = "#FF0077";
 //     ctx.fillRect(0,0,window.innerWidth,window.innerHeight)
 //     // draw game grid before calling eventlistener?
@@ -38,10 +38,10 @@ function initialize() {
 
 }
 
-function mainLoop(ctx, grid, size) {
+function mainLoop(ctx, grid, size, radius) {
     ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
     ctx.fillStyle = "#FF0080";
     ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
     //var gameHGrid = genHGrid(6);
-    drawHGrid(ctx, 400, 200, 10, grid, size);
+    drawHGrid(ctx, 400, 200, radius, grid, size);
 }
