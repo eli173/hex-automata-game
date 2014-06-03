@@ -22,10 +22,7 @@ function initialize() {
 
 function drawHGrid(ctx, x, y, radius, cells, n) {
     // TODO: complete colors for cells
-//not done
     // draws from center
-//    var x_offset = radius*n-radius/2;
-//    var y_offset = Math.sqrt(3)*x_offset;
     var cell = 1;
     for (var row=0;row<2*n-1;row++) {
 	var len;
@@ -43,24 +40,21 @@ function drawHGrid(ctx, x, y, radius, cells, n) {
 }
 
 function rowStart(row, n, x, y ,radius) {
-// UNTESTED!!!
-// BORKED!!
     if (row<n) { // above halfway
-	var origin = {x:x-((radius*n-radius/2)/2),
-		      y:y-(Math.sqrt(3)*(radius*n-radius/2))};
+	var origin = {x:x-((radius*n)/2+radius),
+		      y:y-(Math.sqrt(3)*(radius*n-radius))};
 	var offset = {x:(radius),
 		      y:(radius*Math.sqrt(3))};
 	return {x:(origin.x-offset.x*row),
 		y:(origin.y+offset.y*row)};
     }
-    // here's the bork
     else {
-	var lefty = {x:x-(2*radius*n-radius),
+	var lefty = {x:x-(2*radius*n-2*radius),
 		     y:y};
 	var offset = {x:(radius),
 		      y:(radius*Math.sqrt(3))};
-	return {x:(lefty.x+offset.x*(row-n)),
-		y:(lefty.y+offset.y*(row-n))};
+	return {x:(lefty.x+offset.x*(row-n+1)),
+		y:(lefty.y+offset.y*(row-n+1))};
     }
 }
 
